@@ -1,0 +1,38 @@
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        //using recursion
+        return invert(root);
+    }
+    public TreeNode invert(TreeNode root){
+        if(root == null){
+            return root;
+        }
+        TreeNode invertright = invert(root.right);
+        TreeNode invertleft = invert(root.left);
+        root.right = invertleft;
+        root.left = invertright;
+        return root;
+    }
+    //space complexity - O(N)
+    //Time Complexity - O(N)
+}
+
+//iterative solution
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+    if (root == null) return null;
+    LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+    queue.addFirst(root);
+    while (!queue.isEmpty()) {
+        TreeNode current = queue.removeFirst();
+        TreeNode temp = current.left;
+        current.left = current.right;
+        current.right = temp;
+        if (current.left != null) queue.addLast(current.left);
+        if (current.right != null) queue.addLast(current.right);
+    }
+    return root;
+}
+}
+
+//space and time complexity - O(N)
