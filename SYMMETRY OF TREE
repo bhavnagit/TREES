@@ -1,0 +1,60 @@
+//recursion approach
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+    return isMirror(root, root);
+}
+
+public boolean isMirror(TreeNode t1, TreeNode t2) {
+    if (t1 == null && t2 == null) return true;
+    if (t1 == null || t2 == null) return false;
+    return (t1.val == t2.val)
+        && isMirror(t1.right, t2.left)
+        && isMirror(t1.left, t2.right);
+}
+}       
+    //Time and Space Complexity - O(N)
+    
+    ///iterative solution by applying bi - directional BFS.
+  
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if(root == null) 
+            return true; 
+        if(root.left == null && root.right == null) 
+            return true; 
+        
+        LinkedList<TreeNode> queue = new LinkedList<>(); 
+        queue.addFirst(root); 
+        queue.addFirst(root); 
+         TreeNode leftNode, rightNode; 
+          
+        while(!queue.isEmpty())
+        { 
+            leftNode = queue.removeFirst();
+            rightNode = queue.removeFirst();
+              
+            if(leftNode.val != rightNode.val) 
+            return false; 
+              
+            if(leftNode.left != null && rightNode.right != null)
+            { 
+                queue.addFirst(leftNode.left); 
+                queue.addFirst(rightNode.right); 
+            } 
+              
+            else if (leftNode.left != null  || rightNode.right != null) 
+            return false; 
+              
+            if(leftNode.right != null && rightNode.left != null)
+            { 
+                queue.addFirst(leftNode.right); 
+                queue.addFirst(rightNode.left); 
+            } else if(leftNode.right != null || rightNode.left != null) 
+            return false; 
+        } 
+        
+        return true; 
+    }
+}
+
+//TIME AND SPACE COMPLEXITY - O)N)
