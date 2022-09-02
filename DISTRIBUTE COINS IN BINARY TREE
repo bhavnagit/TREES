@@ -1,0 +1,28 @@
+Below is the basic intuition behind this problem:
+
+Root asks the left subtree, how much do you need or you've got extra? I'll 
+give that/take it away to/from you via our direct edge, and pass it to right child, and if something remains, I'll take it.
+Same question is asked to the right child.
+Answer will be the sum of values(absolute) returned after the asked questions from the left(Left) and right(Right).
+But what should the root return to its parent? It will return that how much does "his tree" need/has extra. 
+That will be the signed sum of its Left+Right (question's answer) + same question asked to current root node.
+
+
+class Solution {
+    int ans =0;
+    public int distributeCoins(TreeNode root) {
+        ans =0;
+        dfs(root);
+        return ans;
+        
+    }
+    public int dfs(TreeNode node){
+        if(node == null) return 0;
+        int left = dfs(node.left);
+        int right = dfs(node.right);
+        ans+= Math.abs(left) + Math.abs(right);//Return number of moves to balance // current node
+        return node.val + left + right -1;//update moves
+    }
+}
+
+Time complexity = O(n)
