@@ -1,0 +1,53 @@
+class Solution
+{
+    public static void transformTree (Node root)
+    {
+    
+		sum = 0;
+		applyReverseInOrder(root);
+		return ;
+    }
+    static int sum = 0;
+
+	private static void applyReverseInOrder(Node root) {
+		if (root == null) {
+			return;
+		}
+		applyReverseInOrder(root.right);
+		int rootVal = root.data;
+
+		root.data = sum;
+
+		sum = sum + rootVal;
+
+		applyReverseInOrder(root.left);
+	}
+
+}
+The key idea behind this approach is that we are going to use reverse in-order traversal using recursion. Reverse inorder traversal of the given binary search tree will give us the value of the nodes in descending order. Thus, before visiting a node, we would have visited all the nodes which are greater than that node in the tree’s reverse in-order traversal. So while traversing, we will keep track of the sum of values of the nodes which we have visited so far, i.e. the sum of the values of all the nodes which are greater than the value of the current node in a variable, let’s say “SUM”. 
+
+
+ 
+
+The steps are as follows :
+
+If the root is NULL, then return.
+Recursive call on the right subtree.
+Store the value of the root node as “ROOTVAL”.
+Set the value of the current node as “SUM”.
+Add “ROOTVAL” to the “SUM”.
+Recursive call on the left subtree.
+Time Complexity
+O(N), where ‘N’ is the number of nodes in the given binary search tree.
+
+ 
+
+We are visiting every node exactly once using the reverse in-order traversal of the tree. So, the final time complexity will be O(N).
+
+Space Complexity
+O(N), where ‘N’ is the number of nodes in the given binary search tree.
+
+ 
+
+We are using in-order traversal to visit ‘N’ nodes recursively, in which the recursive stack will take O(H) space where H is the height of the tree. In the worst case, H will equal to N, when each node in the tree has only one child. Thus, the space complexity is O(N).
+
